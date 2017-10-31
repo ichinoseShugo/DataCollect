@@ -280,8 +280,9 @@ public class MainActivity extends Activity implements SensorEventListener,Camera
     }
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if(play_turn == true)
-            orientationEstimater.tap_flag();
+        if(play_turn == true && event.getAction() == MotionEvent.ACTION_DOWN)
+                orientationEstimater.tap_flag();
+
         return true;
     }
     /*処理手順1:アプリ開始時やリスタート時にBluetooth接続機器を選択*/
