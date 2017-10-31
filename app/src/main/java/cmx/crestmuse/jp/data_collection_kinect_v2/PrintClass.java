@@ -31,16 +31,22 @@ public class PrintClass {
             new File(directoryPath).mkdir();
 
             //ファイルのパスを指定
-            String sensorFilePath = directoryPath + "sensor.csv";
-            String opFlowFilePath = directoryPath + "opticalflow.csv";
+            String sensorFilePath = directoryPath + "Sensor.csv";
+            String opFlowFilePath = directoryPath + "OpFlow.csv";
 
             //書き込みファイルを生成
             sensorWiter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(new File(sensorFilePath)), "SHIFT_JIS"));
             opFlowWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(new File(opFlowFilePath)), "SHIFT_JIS"));
 
-            sensorWiter.print("time,posX,posY,posZ,vX,vY,vZ,vC,accX,accY,accZ,gyroX,gyroY,gyroZ,rotX,rotY,rotZ,gX,gY,gZ,tach\r\n");
-            opFlowWriter.print("time,opFlowX,opFlowY\r\n");
-            Log.i("dddddd", "create Directory!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            sensorWiter.print("SensorTime," +
+                    "position_X,position_Y,position_Z," +
+                    "velocity_X,velocity_Y,velocity_Z,velocity_Change," +
+                    "acceleration_X,acceleration_Y,acceleration_Z," +
+                    "gyro_X,gyro_Y,gyro_Z," +
+                    "rotation_X,rotation_Y,rotation_Z," +
+                    "gravity_X,gravity_Y,gravity_Z," +
+                    "Touch\r\n");
+            opFlowWriter.print("OpFlowTime,opFlow_X,opFlow_Y\r\n");
         }catch(IOException e){
         }
     }
@@ -75,6 +81,7 @@ public class PrintClass {
         sensorWiter.print(String.format("%.2f", gravity.values[0]) + ",");
         sensorWiter.print(String.format("%.2f", gravity.values[1]) + ",");
         sensorWiter.print(String.format("%.2f", gravity.values[2]) + ",");
+
         sensorWiter.print(tap+"\r\n");
     }
 
@@ -84,13 +91,13 @@ public class PrintClass {
 
     public void closeWriter(long DelayTime1,long DelayTime2){
         sensorWiter.flush();
-        sensorWiter.println("DelayTime1(通信往復にかかった時間)="+DelayTime1);
-        sensorWiter.println("DelayTime2(通信終了からタイマー開始までにかかった時間)"+DelayTime2);
+        sensorWiter.println("通信往復にかかった時間="+DelayTime1);
+        sensorWiter.println("通信終了からタイマー開始までにかかった時間="+DelayTime2);
         sensorWiter.close();
 
         opFlowWriter.flush();
-        opFlowWriter.println("DelayTime1(通信往復にかかった時間)="+DelayTime1);
-        opFlowWriter.println("DelayTime2(通信終了からタイマー開始までにかかった時間)"+DelayTime2);
+        opFlowWriter.println("通信往復にかかった時間="+DelayTime1);
+        opFlowWriter.println("通信終了からタイマー開始までにかかった時間="+DelayTime2);
         opFlowWriter.close();
     }
     /*
