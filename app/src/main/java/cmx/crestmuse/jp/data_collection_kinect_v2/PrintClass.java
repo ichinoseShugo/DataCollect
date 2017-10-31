@@ -43,7 +43,7 @@ public class PrintClass {
                     "velocity_X,velocity_Y,velocity_Z,velocity_Change," +
                     "acceleration_X,acceleration_Y,acceleration_Z," +
                     "gyro_X,gyro_Y,gyro_Z," +
-                    "rotation_X,rotation_Y,rotation_Z," +
+                    "rotation_X,rotation_Y,rotation_Z,rotation_Cos," +
                     "gravity_X,gravity_Y,gravity_Z," +
                     "Touch\r\n");
             opFlowWriter.print("OpFlowTime,opFlow_X,opFlow_Y\r\n");
@@ -77,6 +77,7 @@ public class PrintClass {
         sensorWiter.print(String.format("%.2f", rotation[0]) + ",");
         sensorWiter.print(String.format("%.2f", rotation[1]) + ",");
         sensorWiter.print(String.format("%.2f", rotation[2]) + ",");
+        sensorWiter.print(String.format("%.2f", rotation[3]) + ",");
 
         sensorWiter.print(String.format("%.2f", gravity.values[0]) + ",");
         sensorWiter.print(String.format("%.2f", gravity.values[1]) + ",");
