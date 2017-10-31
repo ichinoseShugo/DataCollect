@@ -38,7 +38,7 @@ public class PrintClass {
             sensorWiter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(new File(sensorFilePath)), "SHIFT_JIS"));
             opFlowWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(new File(opFlowFilePath)), "SHIFT_JIS"));
 
-            sensorWiter.print("time,posX,posY,posZ,vX,vY,vZ,vC,accX,accY,accZ,gyroX,gyroY,gyroZ,rotX,rotY,rotZ,gX,gY,gZ\r\n");
+            sensorWiter.print("time,posX,posY,posZ,vX,vY,vZ,vC,accX,accY,accZ,gyroX,gyroY,gyroZ,rotX,rotY,rotZ,gX,gY,gZ,tach\r\n");
             opFlowWriter.print("time,opFlowX,opFlowY\r\n");
             Log.i("dddddd", "create Directory!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         }catch(IOException e){
