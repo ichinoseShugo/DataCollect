@@ -152,6 +152,9 @@ public class MainActivity extends Activity implements SensorEventListener,Camera
                     // 表示なら非表示する
                     SignalButton.setVisibility(View.VISIBLE);
                 }
+                if(TestButton.getVisibility() == View.INVISIBLE){
+                    TestButton.setVisibility(View.VISIBLE);
+                }
                 if (getText_Btn.getVisibility() == View.VISIBLE){
                     getText_Btn.setVisibility(View.INVISIBLE);
                 }

@@ -14,15 +14,14 @@
         android:visibility="visible"
         opencv:camera_id="back"/>
 
-
     <Button
         android:id="@+id/TestButton"
         android:layout_width="300dp"
         android:layout_height="80dp"
         android:layout_marginTop="20dp"
         android:textSize = "30dp"
-        android:text="テストフェイズ" />
-
+        android:visibility="invisible"
+        android:text="練習開始" />
 
     <Button
         android:id="@+id/ShakeButton"
@@ -30,7 +29,7 @@
         android:layout_height="80dp"
         android:layout_below="@+id/TestButton"
         android:layout_marginTop="30dp"
-        android:text="Play"
+        android:text="実験開始"
         android:visibility="invisible"
         android:layout_weight="0.04" />
 
@@ -61,6 +60,6 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/Name_Box"
         android:layout_marginTop="23dp"
-        android:text="Button" />
+        android:text="名前入力" />
 
 </RelativeLayout>

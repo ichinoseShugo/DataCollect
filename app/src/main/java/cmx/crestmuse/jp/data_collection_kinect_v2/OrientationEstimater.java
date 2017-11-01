@@ -29,7 +29,7 @@ import java.util.TimerTask;
 
         private float[] mag = new float[3];
         private float[] accel = new float[3];
-        private float[] rotation_vec = new float[3];
+        private float[] rotation_vec = new float[4];
         private long lastAccelTime = 0;
         private long resetTime = 0;
 
