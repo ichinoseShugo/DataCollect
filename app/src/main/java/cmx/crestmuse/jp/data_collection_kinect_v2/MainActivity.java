@@ -121,6 +121,9 @@ public class MainActivity extends Activity implements SensorEventListener,Camera
         mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.camera_view);
         mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
         mOpenCvCameraView.setCvCameraViewListener(this);
+        mOpenCvCameraView.setAlpha(0);
+        //mOpenCvCameraView.setScaleX(0.5f);
+        //mOpenCvCameraView.setScaleY(0.5f);
         /*背景楽曲を選択*/
         mediaPlayer = MediaPlayer.create(this, R.raw.metronome);
 
@@ -179,8 +182,7 @@ public class MainActivity extends Activity implements SensorEventListener,Camera
                         // 表示なら非表示する
                         SignalButton.setVisibility(View.INVISIBLE);
                     }
-
-
+                    isCameraOpened = true;
                     mediaPlayer.start();
                 }
                 /*処理手順Extra:アプリ開始時にPrintClassのコンストラクタを呼びだしで書き込むファイルを生成printclass.javaを参照*/
@@ -196,7 +198,7 @@ public class MainActivity extends Activity implements SensorEventListener,Camera
                     public void onCompletion(MediaPlayer mediaplayer){
                         if (resetButton.getVisibility() == View.INVISIBLE) {
                             // 非表示されている時に表示に
-                            resetButton.setVisibility(View.VISIBLE);
+                            //resetButton.setVisibility(View.VISIBLE);
                         }
                         if (SignalButton.getVisibility() == View.INVISIBLE) {
                             // 非表示されている時に表示に
@@ -346,7 +348,7 @@ public class MainActivity extends Activity implements SensorEventListener,Camera
         // 特徴点抽出
         MatOfPoint features = new MatOfPoint();
         //Imgproc.goodFeaturesToTrack(image(画像), vector&corner(検出されたコーナーの出力), int(出力するコーナーの最大数), double(コーナーの品質度), )
-        Imgproc.goodFeaturesToTrack(gray, features, 50, 0.01, 10);
+        Imgproc.goodFeaturesToTrack(gray, features, 10, 0.01, 10);
         Log.i(TAG, "called onCreate");
 
         // 特徴点が見つかった
@@ -356,7 +358,6 @@ public class MainActivity extends Activity implements SensorEventListener,Camera
                 // 現在のデータ
                 gray.copyTo(image_next);
                 pts_next = new MatOfPoint2f(features.toArray());
-
                 // オプティカルフロー算出
                 MatOfByte status = new MatOfByte();
                 MatOfFloat err = new MatOfFloat();
@@ -396,18 +397,16 @@ public class MainActivity extends Activity implements SensorEventListener,Camera
                     }
                     move_average_x = move_x / count;
                     move_average_y = move_y / count;
-                    if(isCameraOpened == true) {
-                        orientationEstimater.printFlow(move_average_x,move_average_y);
-                    }
-                    /*
+                    Log.i(TAG, "opticalflow"+move_average_y);
+
                     if(!Double.isNaN(move_average_y)) {
                         move_total_x += move_average_x;
                         move_total_y += move_average_y;
                     }
                     if(isCameraOpened == true) {
-                        orientationEstimater.print(move_total_y);
+                        orientationEstimater.printFlow(move_total_x,move_total_y);
                     }
-                    */
+
                 }
             }
             //Imgproc.line(image, new Point(50,100), new Point(150,300), new Scalar(0,255,0), 5);
