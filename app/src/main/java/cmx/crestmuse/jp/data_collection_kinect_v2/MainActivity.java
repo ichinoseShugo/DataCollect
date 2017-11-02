@@ -41,8 +41,7 @@ import java.util.Set;
 
 public class MainActivity extends Activity implements SensorEventListener,CameraBridgeViewBase.CvCameraViewListener2 {
 
-/*カメラに使用する変数一覧
-* */
+    /*カメラ用変数*/
     // カメラ
     private CameraBridgeViewBase mOpenCvCameraView;
     // カメラ画像
@@ -95,19 +94,12 @@ public class MainActivity extends Activity implements SensorEventListener,Camera
     private ProgressDialog waitDialog;
     private String errorMessage = "";
     private OrientationEstimater orientationEstimater = new OrientationEstimater();
-    /*
-    private SoundPool soundPool;
-    private int[] soundIDList = new int[20];
-    */
+
     private MediaPlayer mediaPlayer = null;
 
-    public TextView orientationText1;
-    public TextView orientationText2;
     public TextView name_box;
     public String subject_name;
     public boolean play_turn = false;
-
-
 
     @Override /*アプリ起動後に実行*/
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,9 +116,9 @@ public class MainActivity extends Activity implements SensorEventListener,Camera
         mOpenCvCameraView.setAlpha(0);
         //mOpenCvCameraView.setScaleX(0.5f);
         //mOpenCvCameraView.setScaleY(0.5f);
+
         /*背景楽曲を選択*/
         mediaPlayer = MediaPlayer.create(this, R.raw.metronome);
-
 
         /*接続リセットボタン:bluetooth接続状態のリセットしてアプリをリスタートする*/
         final Button resetButton = (Button) findViewById(R.id.resetBtn);
@@ -169,7 +161,8 @@ public class MainActivity extends Activity implements SensorEventListener,Camera
         TestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(subject_name != "example") {
+
+                if (subject_name != "example") {
                     if (resetButton.getVisibility() == View.VISIBLE) {
                         // 表示なら非表示する
                         resetButton.setVisibility(View.INVISIBLE);
@@ -193,9 +186,9 @@ public class MainActivity extends Activity implements SensorEventListener,Camera
                 *1. 通信遅延時間の計測
                 *2. スマートフォンセンサーの計測のストップ
                 * */
-                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener(){
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
-                    public void onCompletion(MediaPlayer mediaplayer){
+                    public void onCompletion(MediaPlayer mediaplayer) {
                         if (resetButton.getVisibility() == View.INVISIBLE) {
                             // 非表示されている時に表示に
                             //resetButton.setVisibility(View.VISIBLE);
@@ -259,19 +252,18 @@ public class MainActivity extends Activity implements SensorEventListener,Camera
                         long DelayTime1 = bluetoothTask.EndTime_send - bluetoothTask.StartTime_send;
                         long DelayTime2 = orientationEstimater.startTime - bluetoothTask.EndTime_send;
                         orientationEstimater.stopWiter(DelayTime1,DelayTime2);
-                        Log.d("ddddttttttt", "startTime="+orientationEstimater.startTime+",endTime="+bluetoothTask.EndTime_send);
 
                         if (resetButton.getVisibility() == View.INVISIBLE) {
                             // 非表示されている時に表示に
-                            resetButton.setVisibility(View.VISIBLE);
+                            //resetButton.setVisibility(View.VISIBLE);
                         }
                         if (SignalButton.getVisibility() == View.INVISIBLE) {
                             // 非表示されている時に表示に
-                            SignalButton.setVisibility(View.VISIBLE);
+                            //SignalButton.setVisibility(View.VISIBLE);
                         }
                         if (TestButton.getVisibility() == View.INVISIBLE) {
                             // 非表示されている時に表示に
-                            TestButton.setVisibility(View.VISIBLE);
+                            //TestButton.setVisibility(View.VISIBLE);
                         }
                         Log.v("MediaPlayer", "onCompletion");
                         isCameraOpened = false;
@@ -287,7 +279,6 @@ public class MainActivity extends Activity implements SensorEventListener,Camera
     public boolean onTouchEvent(MotionEvent event) {
         if(play_turn == true && event.getAction() == MotionEvent.ACTION_DOWN)
                 orientationEstimater.tap_flag();
-
         return true;
     }
     /*処理手順1:アプリ開始時やリスタート時にBluetooth接続機器を選択*/
@@ -422,7 +413,7 @@ public class MainActivity extends Activity implements SensorEventListener,Camera
     @Override
     protected void onStart() {
         super.onStart();
-        SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        SensorManager sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         Sensor sensorAccelLinear = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
         Sensor sensorAccel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         Sensor sensorGyro = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
@@ -430,9 +421,7 @@ public class MainActivity extends Activity implements SensorEventListener,Camera
         //Sensor sensorPressure = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
         Sensor sensorGravity = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
         Sensor sensorRotation = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
-        /*
-        Sensor sensorProximity = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
-        */
+        //Sensor sensorProximity = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         sensorManager.registerListener(this, sensorAccelLinear, SensorManager.SENSOR_DELAY_FASTEST);
         sensorManager.registerListener(this, sensorAccel, SensorManager.SENSOR_DELAY_FASTEST);
         sensorManager.registerListener(this, sensorGyro, SensorManager.SENSOR_DELAY_FASTEST);
@@ -440,12 +429,9 @@ public class MainActivity extends Activity implements SensorEventListener,Camera
         //sensorManager.registerListener(this, sensorPressure, SensorManager.SENSOR_DELAY_FASTEST);
         sensorManager.registerListener(this, sensorGravity, SensorManager.SENSOR_DELAY_FASTEST);
         sensorManager.registerListener(this, sensorRotation, SensorManager.SENSOR_DELAY_FASTEST);
-
-        /*
-        sensorManager.registerListener(this, sensorProximity, SensorManager.SENSOR_DELAY_FASTEST);
-        */
-
+        //sensorManager.registerListener(this, sensorProximity, SensorManager.SENSOR_DELAY_FASTEST);
     }
+
     /*センサー使用に必要な処理なので特にいじる必要なし*/
     @Override
     protected void onStop() {

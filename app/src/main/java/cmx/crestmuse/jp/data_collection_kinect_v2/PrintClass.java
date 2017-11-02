@@ -30,6 +30,9 @@ public class PrintClass {
             String directoryPath = Environment.getExternalStorageDirectory().getPath() + "/Android/data/trainingdata/"+date.toString()+"_"+subject_name+"/";
             new File(directoryPath).mkdir();
 
+            //ファイルをつくるディレクトリを指定
+            //String directoryPath = Environment.getExternalStorageDirectory().getPath() + "/Android/data/trainingdata/";
+
             //ファイルのパスを指定
             String sensorFilePath = directoryPath + "Sensor.csv";
             String opFlowFilePath = directoryPath + "OpFlow.csv";
